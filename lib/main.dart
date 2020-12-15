@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutternew/profile/organList.dart';
-import 'package:flutternew/recipient/search_by_Donor.dart';
-import 'package:flutternew/widget/serch_donor_wid.dart';
 
 import './providers/events.dart';
 import 'package:provider/provider.dart';
@@ -17,6 +14,8 @@ import './pages/adding_event_page.dart';
 import './profile/profile_form.dart';
 import 'package:flutternew/authendication/auth_page.dart';
 import 'package:flutternew/recipient/front_recipient_page.dart';
+import 'package:flutternew/recipient/search_by_Donor.dart';
+import 'package:flutternew/recipient/search_by_map.dart';
 import 'navigator/navigatorPage.dart';
 
 
@@ -79,7 +78,9 @@ class MyApp extends StatelessWidget {
           FrontRecipentPage.routeName: (context) => FrontRecipentPage(),
           AuthPage.routName: (context) => AuthPage(),
           DonorSearch.routeName: (context) => DonorSearch(),
+          SearchByMap.routeName: (context) => SearchByMap(),
         },
+        debugShowCheckedModeBanner: false,
       ),
     );
   }

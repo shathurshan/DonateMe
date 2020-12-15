@@ -1,6 +1,5 @@
 
 
-import 'package:flutternew/items/tap_screen_items.dart';
 import './items/front_page_item.dart';
 
 const FrontScreen = const [

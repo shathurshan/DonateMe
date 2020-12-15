@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class DonorSerWid extends StatefulWidget {
@@ -9,12 +8,14 @@ class DonorSerWid extends StatefulWidget {
   final name;
   final number;
   final mail;
+  final type;
 
   DonorSerWid(
     this.Uid,
     this.name,
     this.number,
     this.mail,
+    this.type,
   );
 
   @override

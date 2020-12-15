@@ -1,11 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutternew/navigator/serviceNav.dart';
 
-import 'package:flutternew/pages/tabs_bar_page.dart';
-import 'package:flutternew/recipient/front_recipient_page.dart';
 import 'package:flutternew/widget/app_drawre_widget.dart';
 
 class NavigatorPage extends StatefulWidget {

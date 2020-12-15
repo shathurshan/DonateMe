@@ -52,6 +52,7 @@ class _DonorSearchState extends State<DonorSearch> {
                               docs[index]['username'],
                               docs[index]['contact number'],
                               docs[index]['email id'],
+                              docs[index]['type of user'],
                             ),
                           ),
                         );
