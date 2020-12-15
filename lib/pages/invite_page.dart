@@ -90,7 +90,6 @@ class _InvitePageState extends State<InvitePage> {
   Widget build(BuildContext context) {
     bool isSearching = searchController.text.isNotEmpty;
     return Scaffold(
-      backgroundColor: Colors.blueGrey,
       appBar: AppBar(
         title: Text("Invite page"),
       ),
@@ -127,13 +126,13 @@ class _InvitePageState extends State<InvitePage> {
                   Color color1 = baseColor[800];
                   Color color2 = baseColor[400];
                   return ListTile(
-                      title: Text(contact.displayName),
-                      subtitle: Text(
+                      title: new Text(contact.displayName != null ?contact.displayName : ""),
+                      subtitle: Text( contact.phones != null &&
                           contact.phones.length > 0 ? contact.phones.elementAt(0).value : ''
                       ),
                       leading: (contact.avatar != null && contact.avatar.length > 0) ?
                       CircleAvatar(
-                        backgroundImage: MemoryImage(contact.avatar),
+                        backgroundImage: MemoryImage(contact.avatar != null ?contact.avatar: ''),
                       ) :
                       Container(
                           decoration: BoxDecoration(
