@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutternew/profile/edit_profile.dart';
 import 'package:flutternew/profile/organList.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -15,26 +15,6 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  File _pickedImageCam;
-  File _pickedImagegal;
-  final picker = ImagePicker();
-
-  void _pickImage() async {
-    final pickedImageFile = await picker.getImage(source: ImageSource.camera);
-    setState(
-      () {
-        _pickedImageCam = File(pickedImageFile.path);
-      },
-    );
-  }
-
-  void _getImage() async {
-    final _getImageFile = await picker.getImage(source: ImageSource.gallery);
-    setState(() {
-      _pickedImagegal = File(_getImageFile.path);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,54 +22,17 @@ class _ProfilePageState extends State<ProfilePage> {
       appBar: AppBar(
         title: Text('Profile'),
         centerTitle: true,
+        actions: <Widget>[
+          IconButton(
+            onPressed: () {
+              Navigator.of(context).pushNamed(EditProfile.routeName);
+            },
+            icon: Icon(Icons.edit),
+          ),
+        ],
       ),
       body: Column(
         children: <Widget>[
-//          Divider(height: 40,),
-          Container(
-            margin: EdgeInsets.all(20),
-            child: Center(
-              child: CircleAvatar(
-                backgroundColor: Colors.black54,
-                radius: 80,
-                backgroundImage: _pickedImagegal != null
-                    ? FileImage(_pickedImagegal)
-                    : _pickedImageCam != null
-                        ? FileImage(_pickedImageCam)
-                        : null,
-                child: IconButton(
-                  onPressed: () {
-                    Scaffold.of(context).showSnackBar(
-                      SnackBar(
-                        backgroundColor: Colors.black54,
-                        content: Row(
-                          children: <Widget>[
-                            FlatButton.icon(
-                              onPressed: _pickImage,
-                              icon: Icon(Icons.camera_alt),
-                              label: Text(
-                                'Camera',
-                              ),
-                            ),
-                            FlatButton.icon(
-                              onPressed: _getImage,
-                              icon: Icon(Icons.image),
-                              label: Text(
-                                'Gallery',
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                  icon: Icon(
-                    Icons.add_a_photo,
-                  ),
-                ),
-              ),
-            ),
-          ),
           IconButton(
             icon: Icon(Icons.add),
             iconSize: 40,
@@ -123,9 +66,10 @@ class _ProfilePageState extends State<ProfilePage> {
                       reverse: true,
                       itemCount: document.length,
                       itemBuilder: (ctx, index) {
+                        String userId = futureSnapshot.data.uid;
                         return OrganList(
                           document[index]['text'],
-                          document[index]['userID'] == futureSnapshot.data.uid,
+                          document[index]['userID'] == userId,
                         );
                       },
                     );
@@ -136,7 +80,6 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
         ],
       ),
-//      drawer: AppDrawerWid(),
     );
   }
 }

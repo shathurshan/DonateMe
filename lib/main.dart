@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutternew/profile/edit_profile.dart';
 
 import './providers/events.dart';
 import 'package:provider/provider.dart';
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    void frontPage(){
+     Widget frontPage(){
       Firestore.instance.collection("users")
           .snapshots()
           .listen(
@@ -79,6 +80,7 @@ class MyApp extends StatelessWidget {
           AuthPage.routName: (context) => AuthPage(),
           DonorSearch.routeName: (context) => DonorSearch(),
           SearchByMap.routeName: (context) => SearchByMap(),
+          EditProfile.routeName: (context) => EditProfile(),
         },
         debugShowCheckedModeBanner: false,
       ),

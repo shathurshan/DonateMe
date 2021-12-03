@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutternew/authendication/auth_page.dart';
 
 import '../pages/events_page.dart';
 
@@ -23,9 +24,10 @@ class AppDrawerWid extends StatelessWidget {
           Divider(),
           ListTile(
             leading: Icon(Icons.exit_to_app),
-            title: Text('LogOut'),
+            title: Text('Logout'),
             onTap: () {
               FirebaseAuth.instance.signOut();
+              Navigator.of(context).popAndPushNamed(AuthPage.routName);
             },
           ),
         ],

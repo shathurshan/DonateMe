@@ -26,7 +26,7 @@ class OrganList extends StatelessWidget {
                     Text(
                     organ,
                     style: TextStyle(
-                        fontSize: 15,
+                        fontSize: 30,
                       ),
                     ),
                     Text(
@@ -34,7 +34,7 @@ class OrganList extends StatelessWidget {
                         DateTime.now(),
                       ),
                       style: TextStyle(
-                        fontSize: 15,
+                        fontSize: 20,
                       ),
                     ),
                   ],
@@ -42,6 +42,6 @@ class OrganList extends StatelessWidget {
               ),
             ],
           ),
-        ): CircularProgressIndicator();
+        ): Container();
   }
 }

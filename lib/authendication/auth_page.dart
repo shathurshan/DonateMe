@@ -81,7 +81,7 @@ class _AuthPageState extends State<AuthPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.deepOrange,
-      body: AuthForm(
+      body:AuthForm(
         _submitForm,
         _isLoading,
       ),

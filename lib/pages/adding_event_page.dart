@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -7,65 +9,77 @@ import 'package:image_picker/image_picker.dart';
 
 class AddingEvent extends StatefulWidget {
   static const routeName = '/addevent';
-
-  File image;
-
   @override
   _AddingEventState createState() => _AddingEventState();
 }
 
 class _AddingEventState extends State<AddingEvent> {
-  File _picedImageCam;
-  File _picedImagegal;
-  final picker = ImagePicker();
-
-  void _pickImage() async {
-    final picedImageFile = await picker.getImage(source: ImageSource.camera);
-    setState(() {
-      _picedImageCam = File(picedImageFile.path);
-    });
-  }
-
-  void _getImage() async {
-    final _getImageFile = await picker.getImage(source: ImageSource.gallery);
-    setState(() {
-      _picedImagegal = File(_getImageFile.path);
-    });
-  }
+  File _image;
+  final imagePicker = ImagePicker();
+  String downloardedURL;
 
   final _descriptionFocus = FocusNode();
   final _datetime = FocusNode();
   final _placevent = FocusNode();
-  final _imageUrlController = TextEditingController();
   final _event = GlobalKey<FormState>();
 
   var _eventName = '';
   var _description = '';
   var _dateTime = '';
   var _place = '';
-  File image;
 
   @override
   void dispose() {
     _descriptionFocus.dispose();
     _datetime.dispose();
     _placevent.dispose();
-    _imageUrlController.dispose();
     super.dispose();
   }
 
-  void _saveEvent() {
+  Future ImagePickerMethod() async {
+    final pick = await imagePicker.getImage(source: ImageSource.gallery);
+    setState(() {
+      if (pick != null) {
+        _image = File(pick.path);
+      } else {
+        showSnackBar(
+          "No file selected",
+          Duration(
+            milliseconds: 400,
+          ),
+        );
+      }
+    });
+  }
+
+// Upload Image
+
+  Future UploadImage() async {
+    StorageReference ref = FirebaseStorage.instance.ref().child("Events");
+    await ref.putFile(_image);
+    downloardedURL = await ref.getDownloadURL();
+    print(downloardedURL);
+
+// uploading to cloud fire store
     final isValid = _event.currentState.validate();
 
-    if(isValid)
-    Firestore.instance.collection('events').add({
-      'name': _eventName,
-      'dis': _description,
-      'date': _dateTime,
-      'text': _place,
-      'image': _picedImagegal.toString(),
-    });
+    if (isValid)
+      Firestore.instance.collection('events').add({
+        'name': _eventName,
+        'dis': _description,
+        'date': _dateTime,
+        'text': _place,
+        'image': downloardedURL,
+      });
     Navigator.of(context).pop();
+  }
+
+  showSnackBar(String snackText, Duration d) {
+    final snackBar = SnackBar(
+      content: Text(snackText),
+      duration: d,
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   @override
@@ -133,7 +147,6 @@ class _AddingEventState extends State<AddingEvent> {
                     if (value.isEmpty) {
                       return 'Please Enter the Date & Time';
                     }
-                    //..... hv to add some valid date model & style
                     return null;
                   },
                   onChanged: (value) {
@@ -154,61 +167,55 @@ class _AddingEventState extends State<AddingEvent> {
                     _place = value;
                   }),
               Divider(),
-//              Container(
-//                height: 300,
-//                width: double.infinity,
-//                child: EventImagePicker(),
-//              ),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: <Widget>[
                   Container(
-                    width: 100,
-                    height: 100,
+                    width: 200,
+                    height: 200,
                     color: Colors.black54,
                     margin: EdgeInsets.only(
                       top: 8,
                       right: 10,
                     ),
-                    child: _picedImageCam != null
-                        ? Image.file(_picedImageCam)
-                        : _picedImagegal != null
-                            ? Image.file(_picedImagegal)
-                            : null,
+                    child: _image == null
+                        ? const Center(
+                            child: Text("No Image Selected"),
+                          )
+                        : Image.file(_image),
                   ),
                   Positioned(
                     top: 20,
                     child: Builder(
-                      builder: (ctx) => FlatButton.icon(
-                        onPressed: () {
-                          Scaffold.of(ctx).showSnackBar(
-                            SnackBar(
-                              backgroundColor: Colors.black54,
-                              content: Expanded(
-                                child: Row(
-                                  children: <Widget>[
-                                    FlatButton.icon(
-                                      onPressed: _pickImage,
-                                      icon: Icon(Icons.camera_alt),
-                                      label: Text(
-                                        'Camera',
-                                      ),
+                      builder: (ctx) => Column(
+                        children: [
+                          ElevatedButton(
+                            onPressed: () {
+                              ImagePickerMethod();
+                            },
+                            child: Text("Select Image"),
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
+                              if (_image != null) {
+                                UploadImage().whenComplete(
+                                  () => showSnackBar(
+                                    "Event Posted Successfully",
+                                    Duration(
+                                      seconds: 2,
                                     ),
-                                    FlatButton.icon(
-                                      onPressed: _getImage,
-                                      icon: Icon(Icons.image),
-                                      label: Text(
-                                        'Galery',
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
-                          );
-                        },
-                        icon: Icon(Icons.add_a_photo),
-                        label: Text('Choose a image'),
+                                  ),
+                                );
+                              } else {
+                                showSnackBar(
+                                  "Select Image First",
+                                  Duration(seconds: 1),
+                                );
+                              }
+                            },
+                            child: Text("Post"),
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -217,13 +224,6 @@ class _AddingEventState extends State<AddingEvent> {
             ],
           ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(
-          Icons.local_post_office,
-        ),
-        onPressed: _saveEvent,
-        backgroundColor: Colors.pink,
       ),
     );
   }

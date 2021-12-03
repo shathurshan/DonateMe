@@ -5,7 +5,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:flutternew/pages/tabs_bar_page.dart';
 import 'package:flutternew/recipient/front_recipient_page.dart';
-
 class UserNavigation {
   accessUser(BuildContext context) {
     FirebaseAuth.instance.currentUser().then(
@@ -40,58 +39,4 @@ class UserNavigation {
       },
     );
   }
-
-  // searchDonor() {
-  //   'donor' == 'Donor';
-  //   final String user = 'Donor';
-  //
-  //   Firestore.instance
-  //       .collection('user')
-  //       .where('type of user', isEqualTo: user)
-  //       .getDocuments()
-  //       .then(
-  //     (value) {
-  //       final docs = value.documents[0];
-  //       if (value.documents.isNotEmpty) {
-  //         if (value.documents[0].exists) {
-  //           if (value.documents[0]['type of user'] == 'Donor' ||
-  //               value.documents[0]['type of user'] == 'donor') {
-  //             return Expanded(
-  //               child: ListView.builder(
-  //                 itemCount: 0,
-  //                 itemBuilder: (ctx, index) {
-  //                   return InkWell(
-  //                     onTap: () {
-  //                       print(docs['uid']);
-  //                       return DonorSerWid(
-  //                         docs['uid'],
-  //                         docs['username'],
-  //                         docs['contact number'],
-  //                         docs['email id'],
-  //                         docs['type of user'],
-  //                       );
-  //                     },
-  //                     child: Card(
-  //                       elevation: 5.0,
-  //                       margin: EdgeInsets.all(5),
-  //                       child: ListTile(
-  //                         title: UserNavigation().searchDonor(),
-  //                         // Text(
-  //                         //   docs[index]['username'],
-  //                         // ),
-  //                         leading: Icon(Icons.account_circle),
-  //                       ),
-  //                     ),
-  //                   );
-  //                 },
-  //               ),
-  //             );
-  //           }
-  //         } else {
-  //           return CircularProgressIndicator();
-  //         }
-  //       }
-  //     },
-  //   );
-  // }
 }

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutternew/recipient/search_by_Donor.dart';
 import 'package:flutternew/widget/divider.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -135,24 +136,29 @@ class _SearchByMapState extends State<SearchByMap> {
                               height: 24.0,
                               width: 5.0,
                             ),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  width: 10.0,
-                                ),
-                                Icon(
-                                  Icons.search,
-                                  color: Colors.blue,
-                                ),
-                                SizedBox(
-                                  width: 5.0,
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(top: 5.0,),
-                                  child: Text("Search the Donors"),
-                                ),
-                              ],
+                            GestureDetector(
+                              onTap: (){
+                                Navigator.of(context).pushNamed(DonorSearch.routeName);
+                              },
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    width: 10.0,
+                                  ),
+                                  Icon(
+                                    Icons.search,
+                                    color: Colors.blue,
+                                  ),
+                                  SizedBox(
+                                    width: 5.0,
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(top: 5.0,),
+                                    child: Text("Search the Donors"),
+                                  ),
+                                ],
+                              ),
                             ),
                             SizedBox(
                               height: 10.0,

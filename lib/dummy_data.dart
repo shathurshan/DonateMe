@@ -45,30 +45,3 @@ const FrontScreen = const [
 
   ),
 ];
-
-// const Second = const [
-//   Tap(
-//     id: 'a1',
-//     title: 'Rules',
-//     fronts: ['c1'],
-//     info: 'rulues',
-//   ),
-//   Tap(
-//     id: 'a2',
-//     title: 'Disadvantages',
-//     fronts: ['c2'],
-//     info: 'disadvantages',
-//   ),
-//   Tap(
-//     id: 'a3',
-//     title: 'Advantages',
-//     fronts: ['c3'],
-//     info: 'advantages',
-//   ),
-//   Tap(
-//     id: 'a4',
-//     title: 'Events',
-//     fronts: ['c4'],
-//     info: 'events',
-//   ),
-// ];

@@ -1,93 +1,54 @@
 import 'dart:io';
 
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-class EventImagePicker extends StatefulWidget {
+class ImageUpload extends StatefulWidget {
   @override
-  _EventImagePickerState createState() => _EventImagePickerState();
+  _ImageUploadState createState() => _ImageUploadState();
 }
 
-class _EventImagePickerState extends State<EventImagePicker> {
-  File _picedImageCam;
-  File _picedImagegal;
-  final picker = ImagePicker();
-
-  void _pickImage() async {
-    final _picedImageFile = await picker.getImage(source: ImageSource.camera);
-    setState(
-      () {
-        _picedImageCam = File(_picedImageFile.path);
-      },
-    );
-  }
-
-  void _getImage() async {
-    final _getImageFile = await picker.getImage(source: ImageSource.gallery);
-    setState(
-      () {
-        _picedImagegal = File(_getImageFile.path);
-      },
-    );
-  }
-
+class _ImageUploadState extends State<ImageUpload> {
+  File _image;
+  final imagePicker = ImagePicker();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: <Widget>[
-          Container(
-            width: 100,
-            height: 100,
-            color: Colors.black54,
-            margin: EdgeInsets.only(
-              top: 8,
-              right: 10,
-            ),
-            child: _picedImageCam != null
-                ? Image.file(_picedImageCam)
-                : _picedImagegal != null
-                    ? FileImage(_picedImagegal)
-                    : null,
-          ),
-          Positioned(
-            top: 20,
-            child: Builder(
-              builder: (ctx) => FlatButton.icon(
-                onPressed: () {
-                  Scaffold.of(ctx).showSnackBar(
-                    SnackBar(
-                      backgroundColor: Colors.black54,
-                      content: Expanded(
-                        child: Row(
-                          children: <Widget>[
-                            FlatButton.icon(
-                              onPressed: _pickImage,
-                              icon: Icon(Icons.camera_alt),
-                              label: Text(
-                                'Camera',
-                              ),
-                            ),
-                            FlatButton.icon(
-                              onPressed: _getImage,
-                              icon: Icon(Icons.image),
-                              label: Text(
-                                'Gallery',
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
+      appBar: AppBar(
+        title: Text("Profile picture"),
+        centerTitle: true,
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(
+          20.0,
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(10),
+          child: SizedBox(
+            height: 200,
+            width: double.infinity,
+            child: Row(
+              children: [
+                const Text("Upload image"),
+                const SizedBox(
+                  width: 30,
+                ),
+                Expanded(
+                  flex: 4,
+                  child: Container(
+                    width: 100,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.grey,
                     ),
-                  );
-                },
-                icon: Icon(Icons.add_a_photo),
-                label: Text('Choose a image'),
-              ),
+                  ),
+                ),
+              ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }
