@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import 'package:url_launcher/url_launcher.dart';
@@ -18,9 +17,8 @@ class FrontWid extends StatefulWidget {
 }
 
 class _FrontWidState extends State<FrontWid> {
-
   _lunchUrl() async {
-    if (await canLaunch(widget.url)){
+    if (await canLaunch(widget.url)) {
       await launch(widget.url);
     } else {
       throw 'Could not Launch the URL';
@@ -30,9 +28,8 @@ class _FrontWidState extends State<FrontWid> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap:
-          () {
-            _lunchUrl();
+      onTap: () {
+        _lunchUrl();
       },
       child: Card(
         shape: RoundedRectangleBorder(
@@ -59,17 +56,20 @@ class _FrontWidState extends State<FrontWid> {
                   ),
                 ),
                 Positioned(
-                  bottom: 20,
+                  bottom: 10,
                   right: 10,
                   child: Container(
                     padding: EdgeInsets.all(10),
-                    width: 220,
-                    color: Colors.black54,
-                    child: Text(
-                      widget.title,
-                      style: TextStyle(fontSize: 35, color: Colors.red),
-                      softWrap: true,
-                      overflow: TextOverflow.fade,
+                    child: Center(
+                      child: Text(
+                        widget.title,
+                        style: TextStyle(
+                          fontSize: 35,
+                          color: Colors.red,
+                        ),
+                        softWrap: true,
+                        overflow: TextOverflow.fade,
+                      ),
                     ),
                   ),
                 ),

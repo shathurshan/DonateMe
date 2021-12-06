@@ -14,26 +14,41 @@ class _NavigatorPageState extends State<NavigatorPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Be a God For Need'),
+        title: Text('GIVE THE GIFT OF LIFE'),
         centerTitle: true,
       ),
-      body: Center(
-        child: RaisedButton(
-          onPressed: () {
-            UserNavigation().accessUser(context);
-          },
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: <Widget>[
-              Icon(Icons.arrow_forward),
-              Text(
-                'Continue',
-                textAlign: TextAlign.center,
-              ),
-            ],
+      body: Column(
+        children: [
+          Container(
+            width: 400,
+            height: 400,
+            child: Center(
+              widthFactor: double.infinity,
+              child: Image.asset("images/appstore1.jpg"),
+            ),
           ),
-        ),
+          Container(
+            width: 200,
+            child: Center(
+              child: RaisedButton(
+                onPressed: () {
+                  UserNavigation().accessUser(context);
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Icon(Icons.arrow_forward),
+                    Text(
+                      'Continue',
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
       drawer: AppDrawerWid(),
     );

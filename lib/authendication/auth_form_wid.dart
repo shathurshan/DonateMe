@@ -118,7 +118,6 @@ class _AuthFormState extends State<AuthForm> {
 //                  obscureText: true,
 //                ),
                   if (!_isLogin)
-//                    have to add some validation here
                     TextFormField(
                       key: ValueKey('type'),
                       validator: (value) {

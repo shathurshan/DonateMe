@@ -10,7 +10,7 @@ class Data with ChangeNotifier {
         'm2',
       ],
       title: 'Rules',
-      imageUrl: 'images/1.jpg',
+      imageUrl: 'images/new.jpg',
       url: 'http://www.nbts.health.gov.lk/index.php/donate-blood',
     ),
     Front(

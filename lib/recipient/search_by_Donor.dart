@@ -1,6 +1,8 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutternew/widget/serch_donor_wid.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 
 class DonorSearch extends StatefulWidget {
   static const routeName = '/searchdn';
@@ -10,6 +12,8 @@ class DonorSearch extends StatefulWidget {
 }
 
 class _DonorSearchState extends State<DonorSearch> {
+  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,6 +38,7 @@ class _DonorSearchState extends State<DonorSearch> {
                   itemBuilder: (ctx, index) {
                     return InkWell(
                       onTap: () {
+                        
                         return Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context) {

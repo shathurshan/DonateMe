@@ -91,6 +91,7 @@ class _InvitePageState extends State<InvitePage> {
     bool isSearching = searchController.text.isNotEmpty;
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text("Invite page"),
       ),
       body: Container(

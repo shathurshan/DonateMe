@@ -129,91 +129,89 @@ class _EditProfileState extends State<EditProfile> {
           Container(
             padding: EdgeInsets.all(20.0),
             child: isDataFetched
-                ? Form(
-                    key: _formKey,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        TextFormField(
-                          initialValue: _userName,
-                          validator: (value) {
-                            if (value.isEmpty || value.length < 5) {
-                              return 'Enter minimum of 5 character User Name';
-                            }
-                            return null;
-                          },
-                          decoration: InputDecoration(
-                            labelText: 'Full Name',
+                ? SingleChildScrollView(
+                  child: Form(
+                      key: _formKey,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          TextFormField(
+                            initialValue: _userName,
+                            validator: (value) {
+                              if (value.isEmpty || value.length < 5) {
+                                return 'Enter minimum of 5 character User Name';
+                              }
+                              return null;
+                            },
+                            decoration: InputDecoration(
+                              labelText: 'Full Name',
+                            ),
+                            onSaved: (value) {
+                              _userName = value;
+                            },
                           ),
-                          onSaved: (value) {
-                            _userName = value;
-                          },
-                        ),
-                        TextFormField(
-                          initialValue: _userMail,
-                          key: ValueKey('email'),
-                          validator: (value) {
-                            if (value.isEmpty || !value.contains('@')) {
-                              return 'Please Enter some Valid Email Address.';
-                            }
-                            return null;
-                          },
-                          keyboardType: TextInputType.emailAddress,
-                          decoration: InputDecoration(
-                            labelText: 'Email Address',
+                          TextFormField(
+                            initialValue: _userMail,
+                            key: ValueKey('email'),
+                            validator: (value) {
+                              if (value.isEmpty || !value.contains('@')) {
+                                return 'Please Enter some Valid Email Address.';
+                              }
+                              return null;
+                            },
+                            keyboardType: TextInputType.emailAddress,
+                            decoration: InputDecoration(
+                              labelText: 'Email Address',
+                            ),
+                            onSaved: (value) {
+                              _userMail = value;
+                            },
                           ),
-                          onSaved: (value) {
-                            _userMail = value;
-                          },
-                        ),
-                        TextFormField(
-                          initialValue: _userType,
-                          key: ValueKey('type'),
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return 'Please chose a Type of User';
-                            }
-                            return null;
-                          },
-                          decoration: InputDecoration(
-                            labelText: 'Register as(Donor/Recipient*)',
+                          TextFormField(
+                            initialValue: _userType,
+                            key: ValueKey('type'),
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return 'Please chose a Type of User';
+                              }
+                              return null;
+                            },
+                            decoration: InputDecoration(
+                              labelText: 'Register as(Donor/Recipient*)',
+                            ),
+                            onSaved: (value) {
+                              setState(() {
+                                _userType = value;
+                              });
+                            },
                           ),
-                          onSaved: (value) {
-                            setState(() {
-                              _userType = value;
-                            });
-                          },
-                        ),
-                        TextFormField(
-                          initialValue: _userNumber,
-                          key: ValueKey('number'),
-                          validator: (value) {
-                            if (value.isEmpty || value.length < 10) {
-                              return 'Enter some valid Mobile Number';
-                            }
-                            return null;
-                          },
-                          keyboardType: TextInputType.number,
-                          decoration: InputDecoration(
-                            labelText: 'Mobile Number',
+                          TextFormField(
+                            initialValue: _userNumber,
+                            key: ValueKey('number'),
+                            validator: (value) {
+                              if (value.isEmpty || value.length < 10) {
+                                return 'Enter some valid Mobile Number';
+                              }
+                              return null;
+                            },
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              labelText: 'Mobile Number',
+                            ),
+                            onSaved: (value) {
+                              _userNumber = value;
+                            },
                           ),
-                          onSaved: (value) {
-                            _userNumber = value;
-                          },
-                        ),
-                        SizedBox(
-                          height: 14,
-                        ),
-                        SizedBox(
-                          height: 12,
-                        ),
-                        RaisedButton(
-                          child: Text('Update Profile'),
-                          onPressed: _updateProfile,
-                        ),
-                      ],
+                          SizedBox(height:8),
+                          RaisedButton(
+                            child: Text('Update Profile'),
+                            onPressed: _updateProfile,
+                          ),
+                          SizedBox(height:12),
+                        ],
+                      ),
                     ),
-                  )
+                )
                 : Center(child: CircularProgressIndicator()),
           ),
         ],
