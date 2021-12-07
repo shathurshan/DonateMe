@@ -28,7 +28,7 @@ class DonorSerWid extends StatefulWidget {
 
 class _DonorSerWidState extends State<DonorSerWid> {
   static final DateTime now = DateTime.now();
-  static final DateFormat formatter = DateFormat('yyyy-MM-dd');
+  static final DateFormat formatter = DateFormat('dd/MM/yyyy HH:mm');
   final String formatted = formatter.format(now);
   final FirebaseAuth auth = FirebaseAuth.instance;
 

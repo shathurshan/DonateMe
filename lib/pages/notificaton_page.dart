@@ -15,14 +15,22 @@ class _NotificationPageState extends State<NotificationPage> {
     final FirebaseAuth auth = FirebaseAuth.instance;
     final FirebaseUser user = await auth.currentUser();
     final uid = user.uid;
+    print(uid);
     setState(() {
       authUid = uid;
     });
   }
 
   String authUid;
+
+  bool isNotification = false;
+
   @override
   Widget build(BuildContext context) {
+    if (!isNotification) {
+      getAuthenticateUser();
+      isNotification = true;
+    }
     return Scaffold(
       backgroundColor: Colors.blueGrey,
       appBar: AppBar(
@@ -48,11 +56,6 @@ class _NotificationPageState extends State<NotificationPage> {
                         elevation: 4,
                         child: Column(
                           children: <Widget>[
-                            // Text(doc[i]['date']),
-                            // Text(doc[i]['name']),
-                            // Text(doc[i]['sender']),
-                            // Text(doc[i]['senderId']),
-                            // Text(doc[i]['time']),
                             Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: Text(
@@ -62,8 +65,7 @@ class _NotificationPageState extends State<NotificationPage> {
                                     doc[i]['name'] +
                                     " on " +
                                     doc[i]['date'] +
-                                    " at " +
-                                    doc[i]['time'],
+                                    " \nThanks for using the Application",
                                 style: TextStyle(
                                   fontStyle: FontStyle.italic,
                                   fontSize: 15,
@@ -75,13 +77,7 @@ class _NotificationPageState extends State<NotificationPage> {
                         ),
                       ),
                     )
-                  : Container(
-                      // child: Center(
-                      //   child: Text(
-                      //     "No nortification you get",
-                      //   ),
-                      // ),
-                    );
+                  : Container();
             },
           );
         },

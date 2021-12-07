@@ -20,6 +20,7 @@ class _NavigatorPageState extends State<NavigatorPage> {
       body: Column(
         children: [
           Container(
+            alignment: Alignment.center,
             width: 400,
             height: 400,
             child: Center(
@@ -28,7 +29,7 @@ class _NavigatorPageState extends State<NavigatorPage> {
             ),
           ),
           Container(
-            width: 200,
+            width: 300,
             child: Center(
               child: RaisedButton(
                 onPressed: () {
